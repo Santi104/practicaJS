@@ -1,0 +1,6 @@
+let name = document.getElementById("name")
+let lastName = document.getElementById("lastName")
+let phone = document.getElementById("phone")
+let city = document.getElementById("city")
+let address = document.getElementById("address")
+let list = document.getElementById("list")

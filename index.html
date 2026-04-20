@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Contact List</title>
+</head>
+<body>
+    <header>
+        <img src="./img/main-image.png" alt="main-image">
+            <h1 class="title">Contact List</h1>
+    </header>
+    <main>
+        <div class="contact-list" id="inputs">
+            <input id="name" type="text" placeholder="Input your name">
+            <input id="lastname" type="text" placeholder="Input your lastName">
+            <input id="phone" type="text" placeholder="Input your phone">
+            <input id="city" type="text" placeholder="Input your city">
+            <input id="address" type="text" placeholder="Input your address">
+        </div>
+        <div class="check" id="check">
+            <label>
+                <input type="checkbox" value="Female">
+                Female
+            </label>
+            <label>
+                <input type="checkbox" value="Male">
+                Male
+            </label>
+
+        </div>
+        <div class="add-btton">
+            <button id="add-btton">ADD</button>
+        </div>
+
+        <ul id="list">
+        </ul>
+    </main>
+</body>
+<script src="logic.js"></script>
+</html>
