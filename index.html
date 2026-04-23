@@ -7,36 +7,45 @@
     <title>Contact List</title>
 </head>
 <body>
-    <header>
-        <img src="./img/main-image.png" alt="main-image">
-            <h1 class="title">Contact List</h1>
-    </header>
-    <main>
-        <div class="contact-list" id="inputs">
-            <input id="name" type="text" placeholder="Input your name">
-            <input id="lastname" type="text" placeholder="Input your lastName">
-            <input id="phone" type="text" placeholder="Input your phone">
-            <input id="city" type="text" placeholder="Input your city">
-            <input id="address" type="text" placeholder="Input your address">
-        </div>
-        <div class="check" id="check">
-            <label>
-                <input type="checkbox" value="Female">
-                Female
-            </label>
-            <label>
-                <input type="checkbox" value="Male">
-                Male
-            </label>
 
+<div id="spinnerOverlay" class="spinner-overlay hidden">
+    <div class="spinner"></div>
+</div>
+
+<header>
+    <img src="./img/main-image.png" alt="main-image">
+    <h1 class="title">Contact List</h1>
+</header>
+
+<main>
+    <form id="contact-form">
+        <div class="contact-list">
+            <input id="name" type="text" placeholder="Input your name" required>
+            <input id="lastName" type="text" placeholder="Input your lastName" required>
+            <input id="phone" type="text" placeholder="Input your phone" required>
+            <input id="city" type="text" placeholder="Input your city" required>
+            <input id="address" type="text" placeholder="Input your address" required>
         </div>
+
+        <div class="check">
+            <label>
+                <input type="checkbox" id="female"> Female
+            </label>
+            <label>
+                <input type="checkbox" id="male"> Male
+            </label>
+        </div>
+
         <div class="add-btton">
-            <button id="add-btton">ADD</button>
+            <button type="submit" id="add-btton">ADD</button>
         </div>
+    </form>
 
-        <ul id="list">
-        </ul>
-    </main>
-</body>
+    <ul id="list"></ul>
+
+    <button id="remove">Remove Last</button>
+</main>
+
 <script src="logic.js"></script>
+</body>
 </html>
