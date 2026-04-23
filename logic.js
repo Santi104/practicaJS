@@ -10,17 +10,9 @@ let addBttn = document.getElementById("add-btton");
 let removeBtn = document.getElementById("remove");
 let checkFemale = document.getElementById("female");
 let checkMale = document.getElementById("male");
-let spinner = document.getElementById("spinnerOverlay");
 
 let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
-
-function showSpinner() {
-    spinner.classList.remove("hidden");
-}
-
-function hideSpinner() {
-    spinner.classList.add("hidden");
-}
+let editIndex = null;
 
 checkFemale.addEventListener("change", () => {
     if (checkFemale.checked) checkMale.checked = false;
@@ -37,7 +29,7 @@ function saveToLocalStorage() {
 function renderContacts() {
     list.innerHTML = "";
 
-    contacts.forEach((c, index) => {
+    contacts.forEach((c, i) => {
         const li = document.createElement("li");
         li.className = "contact-item";
 
@@ -56,15 +48,32 @@ function renderContacts() {
         const div_bttons = document.createElement("div");
         div_bttons.className = "div_bttons";
 
+        const editBtn = document.createElement("button");
+        editBtn.textContent = "✏️";
+
+        editBtn.addEventListener("click", () => {
+            username.value = c.name;
+            lastName.value = c.lastName;
+            phone.value = c.phone;
+            city.value = c.city;
+            address.value = c.address;
+
+            checkFemale.checked = c.gender === "female";
+            checkMale.checked = c.gender === "male";
+
+            editIndex = i;
+        });
+
         const deleteBtn = document.createElement("button");
         deleteBtn.textContent = "🗑️";
 
         deleteBtn.addEventListener("click", () => {
-            contacts.splice(index, 1);
+            contacts.splice(i, 1);
             saveToLocalStorage();
             renderContacts();
         });
 
+        div_bttons.appendChild(editBtn);
         div_bttons.appendChild(deleteBtn);
 
         li.appendChild(contact_div);
@@ -85,33 +94,33 @@ function add() {
         return;
     }
 
-    showSpinner();
+    const contact = {
+        name: username.value,
+        lastName: lastName.value,
+        phone: phone.value,
+        city: city.value,
+        address: address.value,
+        gender: checkFemale.checked ? "female" : "male"
+    };
 
-    setTimeout(() => {
-        const contact = {
-            name: username.value,
-            lastName: lastName.value,
-            phone: phone.value,
-            city: city.value,
-            address: address.value,
-            gender: checkFemale.checked ? "female" : "male"
-        };
-
+    if (editIndex !== null) {
+        contacts[editIndex] = contact;
+        editIndex = null;
+    } else {
         contacts.push(contact);
-        saveToLocalStorage();
-        renderContacts();
+    }
 
-        username.value = "";
-        lastName.value = "";
-        phone.value = "";
-        city.value = "";
-        address.value = "";
+    saveToLocalStorage();
+    renderContacts();
 
-        checkFemale.checked = false;
-        checkMale.checked = false;
+    username.value = "";
+    lastName.value = "";
+    phone.value = "";
+    city.value = "";
+    address.value = "";
 
-        hideSpinner();
-    }, 700);
+    checkFemale.checked = false;
+    checkMale.checked = false;
 }
 
 function remove() {
@@ -125,12 +134,10 @@ addBttn.addEventListener("click", (e) => {
     add();
 });
 
-removeBtn.addEventListener("click", remove);
+if (removeBtn) {
+    removeBtn.addEventListener("click", remove);
+}
 
-showSpinner();
-setTimeout(() => {
-    renderContacts();
-    hideSpinner();
-}, 500);
+renderContacts();
 
 });
